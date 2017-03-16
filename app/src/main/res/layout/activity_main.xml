@@ -14,25 +14,26 @@
         android:layout_height="wrap_content"
         android:text="Help"
         android:id="@+id/helpbtn"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp" />
+        android:layout_marginTop="68dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Turn off"
         android:id="@+id/turn_off"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/helpbtn"
-        android:layout_alignStart="@+id/helpbtn" />
+        android:layout_below="@+id/helpbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Insight"
         android:id="@+id/insight"
-        android:layout_marginTop="72dp"
         android:layout_below="@+id/turn_off"
-        android:layout_alignLeft="@+id/turn_off"
-        android:layout_alignStart="@+id/turn_off" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp" />
+
 </RelativeLayout>

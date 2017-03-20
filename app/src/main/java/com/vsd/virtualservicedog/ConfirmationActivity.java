@@ -21,10 +21,10 @@ public class ConfirmationActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(message);
 
-        Button mButton = (Button) findViewById(R.id.nobtn);
+        Button noButton = (Button) findViewById(R.id.nobtn);
         Button yesButton = (Button) findViewById(R.id.yesbtn);
         // Set a click listener for the text view
-        mButton.setOnClickListener(new View.OnClickListener() {
+        noButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getBreath();
             }

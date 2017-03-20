@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity"></activity>
+        <activity android:name=".ConfirmationActivity" />
+        <activity android:name=".BreathActivity" />
+        <activity android:name=".HelpAdvice" />
+        <activity android:name=".HelpQ1Activity" />
+        <activity android:name=".HelpQ2Activity"></activity>
     </application>
 
 </manifest>

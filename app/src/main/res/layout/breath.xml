@@ -17,12 +17,12 @@
         android:textColor="#000" />
 
     <Button
-        android:id="@+id/ib_close"
+        android:id="@+id/readybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I'm ready!"
+        android:text="tap here when you are ready"
+        android:layout_marginTop="73dp"
         android:layout_below="@+id/tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

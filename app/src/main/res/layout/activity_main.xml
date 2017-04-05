@@ -19,13 +19,12 @@
         android:layout_marginTop="68dp" />
 
     <Button
+        android:id="@+id/switchbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn off"
-        android:id="@+id/turn_off"
-        android:layout_marginTop="57dp"
         android:layout_below="@+id/helpbtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -33,8 +32,17 @@
         android:text="Insight"
         android:id="@+id/insight"
         android:layout_marginTop="63dp"
-        android:layout_below="@+id/turn_off"
-        android:layout_alignLeft="@+id/turn_off"
-        android:layout_alignStart="@+id/turn_off" />
+        android:layout_below="@+id/switchbtn"
+        android:layout_alignLeft="@+id/switchbtn"
+        android:layout_alignStart="@+id/switchbtn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/insight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:text="@string/heart_rate" />
 
 </RelativeLayout>

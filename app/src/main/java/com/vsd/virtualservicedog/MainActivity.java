@@ -1,9 +1,10 @@
 package com.vsd.virtualservicedog;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,8 +14,6 @@ import android.widget.TextView;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static com.vsd.virtualservicedog.R.id.switchbtn;
@@ -23,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView heartrateTextView;
     TextView predictionText;
-    PanicDetection panicDetection = new PanicDetection();
-    Handler heartrateHandler = new Handler();
-    int currentheartrate = 0;
+    PanicDetection panicDetection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 getRecord(v);
             }
         });
+        Context context = getApplicationContext();
+        panicDetection  = PanicDetection.getInstance(context);
 
-        heartrateTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                double[] values = new double[]{(double)currentheartrate};
-                Instance instance = new DenseInstance(values);
-                Object result = panicDetection.classifydata(instance);
-                predictionText.setText(result.toString());
-                //predictionText.setText("on");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
     /** Called when the user taps the Help button */

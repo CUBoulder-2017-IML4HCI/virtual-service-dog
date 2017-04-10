@@ -2,4 +2,5 @@
     <string name="app_name">VirtualServiceDog</string>
     <string name="advice">Advice</string>
     <string name="heart_rate">Heart Rate: </string>
+    <string name="prediction">prediction</string>
 </resources>

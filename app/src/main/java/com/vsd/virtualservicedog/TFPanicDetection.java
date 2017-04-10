@@ -1,7 +1,9 @@
 package com.vsd.virtualservicedog;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
+import org.tensorflow.contrib.android.RunStats;
 import java.io.IOException;
+
 
 public class TFPanicDetection implements Classifier{
     //TODO: exact values TBD
@@ -9,7 +11,6 @@ public class TFPanicDetection implements Classifier{
     private static final float THRESHOLD = 0.1f;
 
     private TensorFlowInferenceInterface inferenceInterface;
-
     /**
      * Initializes a native TensorFlow session for classifying user status.
      * @throws IOException

@@ -1,5 +1,6 @@
 package com.vsd.virtualservicedog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import net.sf.javaml.core.DenseInstance;
+import net.sf.javaml.core.Instance;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -72,7 +76,14 @@ public class DoneActivity extends ActionBarActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.done_graphview);
         layout.addView(graphicalView);
 
-        if((int)(total/i)>70){
+        PanicDetection panicDetection;
+        Context context = getApplicationContext();
+        panicDetection  = PanicDetection.getInstance(context);
+
+        double[] values = new double[]{(double)(int)(total/i)};
+        Instance instance = new DenseInstance(values);
+        Object result = panicDetection.classifydata(instance);
+        if(result.toString().equals("yes")) {
             getHelp();
         }
     }

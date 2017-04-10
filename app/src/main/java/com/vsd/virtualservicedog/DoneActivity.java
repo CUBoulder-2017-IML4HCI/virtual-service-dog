@@ -72,7 +72,7 @@ public class DoneActivity extends ActionBarActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.done_graphview);
         layout.addView(graphicalView);
 
-        if((int)(total/i)>73){
+        if((int)(total/i)>70){
             getHelp();
         }
     }

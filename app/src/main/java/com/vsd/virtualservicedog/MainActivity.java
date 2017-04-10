@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Button mybtn = (Button) findViewById(R.id.helpbtn);
         mybtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getHelp();
+                getBreath();
             }
         });
 
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /** Called when the user taps the Help button */
-    public void getHelp() {
-        Intent intent = new Intent(this, ConfirmationActivity.class);
+    private void getBreath() {
+        Intent intent = new Intent(this, BreathActivity.class);
         startActivity(intent);
     }
 

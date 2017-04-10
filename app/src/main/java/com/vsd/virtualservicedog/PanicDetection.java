@@ -1,45 +1,61 @@
 package com.vsd.virtualservicedog;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import net.sf.javaml.classification.KNearestNeighbors;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 class PanicDetection {
 
+    private static PanicDetection instance = null;
     private KNearestNeighbors knnclassifier;
-    PanicDetection() {
-        knnclassifier = new KNearestNeighbors(5);
+    private String FILE_NAME = "data.txt";
+
+    PanicDetection(Context context) {
+        AssetManager am = context.getAssets();
         Dataset data = new DefaultDataset();
-        // TODO: write and read data from file
-        double[] l1 = new double[]{100};
-        double[] l2 = new double[]{120};
-        double[] l3 = new double[]{90};
-        double[] l4 = new double[]{60};
-        double[] l5 = new double[]{70};
-        double[] l6 = new double[]{80};
-        Instance instance1 = new DenseInstance(l1,"yes");
-        Instance instance2 = new DenseInstance(l2,"yes");
-        Instance instance3 = new DenseInstance(l3,"yes");
-        Instance instance4 = new DenseInstance(l4,"no");
-        Instance instance5 = new DenseInstance(l5,"no");
-        Instance instance6 = new DenseInstance(l6,"no");
-        data.add(instance1);
-        data.add(instance2);
-        data.add(instance3);
-        data.add(instance4);
-        data.add(instance5);
-        data.add(instance6);
+        try {
+            InputStream is = am.open(FILE_NAME);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            while (line != null) {
+                String[] tokens = line.split(",");
+                double[] datapoint = new double[]{Double.parseDouble(tokens[0])};
+                String label = tokens[1];
+                Instance instance = new DenseInstance(datapoint,label);
+                data.add(instance);
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        knnclassifier = new KNearestNeighbors(1);
         knnclassifier.buildClassifier(data);
     }
 
-    public Object classifydata(Instance instance){
+    Object classifydata(Instance instance) {
         return knnclassifier.classify(instance);
     }
 
-    public void addToTraining(Object data, String label){
+    public void addToTraining(Object data, String label) {
         // TODO
+    }
+
+    public static PanicDetection getInstance(Context context) {
+        if (instance == null) {
+            instance = new PanicDetection(context);
+        }
+        return instance;
     }
 }

@@ -48,7 +48,7 @@ class PanicDetection {
         return knnclassifier.classify(instance);
     }
 
-    public void addToTraining(Object data, String label) {
+    public void addToTraining(double data, String label) {
         // TODO
     }
 

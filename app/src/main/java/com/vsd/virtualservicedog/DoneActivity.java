@@ -27,6 +27,7 @@ public class DoneActivity extends ActionBarActivity {
     static XYSeries series = new XYSeries("heart rate");
     Button restart;
     double total=0;
+    double heartrate;
 
     //sets all of the options for the renderer
     private XYMultipleSeriesRenderer getDemoRenderer() {
@@ -80,6 +81,7 @@ public class DoneActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         panicDetection  = PanicDetection.getInstance(context);
 
+        heartrate = (double)(int)(total/i);
         double[] values = new double[]{(double)(int)(total/i)};
         Instance instance = new DenseInstance(values);
         Object result = panicDetection.classifydata(instance);
@@ -97,6 +99,8 @@ public class DoneActivity extends ActionBarActivity {
 
     public void getHelp() {
         Intent intent = new Intent(this, ConfirmationActivity.class);
+        String msg = String.valueOf(heartrate);
+        intent.putExtra("HR", msg);
         startActivity(intent);
     }
 }

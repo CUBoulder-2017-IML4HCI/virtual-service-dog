@@ -71,6 +71,10 @@ public class DoneActivity extends ActionBarActivity {
         graphicalView = ChartFactory.getScatterChartView(this, dataset, getDemoRenderer());
         LinearLayout layout = (LinearLayout) findViewById(R.id.done_graphview);
         layout.addView(graphicalView);
+
+        if((int)(total/i)>73){
+            getHelp();
+        }
     }
 
     private void restartTest() {
@@ -78,6 +82,11 @@ public class DoneActivity extends ActionBarActivity {
         intent.setClass(getApplicationContext(), HeartRateMonitor.class);
         startActivity(intent);
         this.finish();
+    }
+
+    public void getHelp() {
+        Intent intent = new Intent(this, ConfirmationActivity.class);
+        startActivity(intent);
     }
 }
 

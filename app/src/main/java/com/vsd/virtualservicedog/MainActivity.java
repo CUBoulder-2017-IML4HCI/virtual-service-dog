@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.vsd.virtualservicedog.R.id.switchbtn;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView heartrateTextView;
@@ -24,17 +26,6 @@ public class MainActivity extends AppCompatActivity {
     PanicDetection panicDetection = new PanicDetection();
     Handler heartrateHandler = new Handler();
     int currentheartrate = 0;
-
-    Runnable heartrateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            Random rand = new Random();
-            int counter = rand.nextInt((80 - 60) + 1) + 60;
-            heartrateTextView.setText(String.format("Heart Rate: %d", counter));
-            heartrateHandler.postDelayed(this, 10000);
-            currentheartrate = counter;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
         predictionText = (TextView) findViewById(R.id.prediction);
         heartrateTextView = (TextView) findViewById(R.id.hearrate);
 
-        Button switchBtn = (Button) findViewById(R.id.switchbtn);
+        Button switchBtn = (Button) findViewById(switchbtn);
         switchBtn.setText("Monitor");
         switchBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                heartRateGenerator(v);
+                getRecord(v);
             }
         });
 
@@ -89,14 +79,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void heartRateGenerator(View v){
+    public void getRecord(View v){
+        Intent intent;
         Button switchBtn = (Button) v;
-        if (switchBtn.getText().equals("Turn off")) {
-            heartrateHandler.removeCallbacks(heartrateRunnable);
+        if(switchBtn.getText().equals("Turn off")){
             switchBtn.setText("Monitor");
-        } else {
-            heartrateHandler.postDelayed(heartrateRunnable, 0);
+        }else{
             switchBtn.setText("Turn off");
+            intent = new Intent(this, HeartRateMonitor.class);
+            startActivity(intent);
         }
     }
+
 }

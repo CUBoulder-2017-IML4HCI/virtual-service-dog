@@ -103,5 +103,6 @@ public class DoneActivity extends ActionBarActivity {
         intent.putExtra("HR", msg);
         startActivity(intent);
     }
+
 }
 

@@ -42,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button insightbtn = (Button) findViewById(R.id.insight);
+        insightbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getInsights();
+            }
+        });
+
         predictionText = (TextView) findViewById(R.id.prediction);
         heartrateTextView = (TextView) findViewById(R.id.hearrate);
 
@@ -65,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                         != PackageManager.PERMISSION_GRANTED) {
             callPermission();
         }
+    }
+
+    private void getInsights() {
+        Intent intent = new Intent(this, GetInsights.class);
+        startActivity(intent);
     }
 
     /** Called when the user taps the Help button */

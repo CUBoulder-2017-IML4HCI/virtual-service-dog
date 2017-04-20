@@ -1,9 +1,13 @@
 package com.vsd.virtualservicedog;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +23,8 @@ import java.util.Random;
 import static com.vsd.virtualservicedog.R.id.switchbtn;
 
 public class MainActivity extends AppCompatActivity {
+    final private int MY_PERMISSIONS_REQUEST_CAMERA = 123;
+    final private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 124;
 
     TextView heartrateTextView;
     TextView predictionText;
@@ -58,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         panicDetection  = PanicDetection.getInstance(context);
 
+        // asks for camera/file permission if we don't already have any
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            callPermission();
+        }
     }
 
     private void getInsights() {
@@ -72,14 +87,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getRecord(View v){
-        Intent intent;
-        Button switchBtn = (Button) v;
-        if(switchBtn.getText().equals("Turn off")){
-            switchBtn.setText("Monitor");
-        }else{
-            switchBtn.setText("Turn off");
-            intent = new Intent(this, HeartRateMonitor.class);
-            startActivity(intent);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            callPermission();
+        }
+        else {
+            Intent intent;
+            Button switchBtn = (Button) v;
+            if (switchBtn.getText().equals("Turn off")) {
+                switchBtn.setText("Monitor");
+            } else {
+                switchBtn.setText("Turn off");
+                intent = new Intent(this, HeartRateMonitor.class);
+                startActivity(intent);
+            }
+        }
+    }
+
+    // there's probably a neater way to do all the boilerplate here but
+    // I didn't want to spend too long refining things when it works
+    public void callPermission() {
+        // shows an explanation if they've previously refused permission
+        // then tries again
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA) ||
+            ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            PermissionsDialog pd = new PermissionsDialog();
+            pd.setActivity(this);
+            pd.show(getFragmentManager(), "dialog");
+
+        } else {
+            // the actual request
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+            }
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
         }
     }
 

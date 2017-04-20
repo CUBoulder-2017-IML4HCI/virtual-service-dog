@@ -12,17 +12,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take a deep breath.\nIn ... and out."
-        android:layout_centerInParent="true"
+        android:gravity="center"
         android:padding="25sp"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="71dp"
+        android:layout_alignRight="@+id/readybutton"
+        android:layout_alignEnd="@+id/readybutton"
+        android:layout_alignLeft="@+id/readybutton"
+        android:layout_alignStart="@+id/readybutton" />
 
     <Button
         android:id="@+id/readybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tap here when you are ready"
-        android:layout_marginTop="73dp"
-        android:layout_below="@+id/tv"
-        android:layout_centerHorizontal="true" />
+        android:text="tap when you are ready"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp" />
 
 </RelativeLayout>

@@ -11,10 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-/**
- * Created by shadybug on 4/17/17.
- */
-
 public class PermissionsDialog extends DialogFragment {
     int MY_PERMISSIONS_REQUEST_CAMERA = 123;
     int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 124;

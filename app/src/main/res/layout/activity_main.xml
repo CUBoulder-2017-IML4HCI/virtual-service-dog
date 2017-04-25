@@ -9,15 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.vsd.virtualservicedog.MainActivity">
 
-    <TextView
-        android:id="@+id/prediction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        android:text="@string/prediction"
-        android:layout_below="@+id/insight"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,15 +35,5 @@
         android:layout_below="@+id/switchbtn"
         android:layout_alignLeft="@+id/switchbtn"
         android:layout_alignStart="@+id/switchbtn" />
-
-    <TextView
-        android:id="@+id/hearrate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:text="@string/heart_rate"
-        android:layout_below="@+id/prediction"
-        android:layout_alignLeft="@+id/prediction"
-        android:layout_alignStart="@+id/prediction" />
 
 </RelativeLayout>

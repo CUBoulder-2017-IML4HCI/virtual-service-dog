@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/text"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/currentX"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/currentY"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -40,7 +40,7 @@
         <TextView
             android:id="@+id/currentZ"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/maxX"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -56,7 +56,7 @@
         <TextView
             android:id="@+id/maxY"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -64,7 +64,7 @@
         <TextView
             android:id="@+id/maxZ"
             android:text="@string/default_text"
-            android:textSize="32dp"
+            android:textSize="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>

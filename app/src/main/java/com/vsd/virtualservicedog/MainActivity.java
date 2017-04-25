@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        predictionText = (TextView) findViewById(R.id.prediction);
-        heartrateTextView = (TextView) findViewById(R.id.hearrate);
 
         Button switchBtn = (Button) findViewById(switchbtn);
         switchBtn.setText("Monitor");

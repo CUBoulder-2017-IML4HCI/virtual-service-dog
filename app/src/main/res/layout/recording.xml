@@ -77,9 +77,8 @@
 
         <SurfaceView
             android:id="@+id/preview"
-            android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="142dp">
 
         </SurfaceView>
 
@@ -93,7 +92,7 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="100dip"
+            android:layout_height="match_parent"
             android:id="@+id/graphlayout"
             android:orientation="horizontal"></LinearLayout>
     </LinearLayout>

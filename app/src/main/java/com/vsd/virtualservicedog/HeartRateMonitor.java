@@ -100,13 +100,13 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     private float lastX, lastY, lastZ;
     private SensorManager sensorManager;
     private Sensor accelerometer;
-    private float deltaXMax = 0;
-    private float deltaYMax = 0;
-    private float deltaZMax = 0;
-    private float deltaX = 0;
-    private float deltaY = 0;
-    private float deltaZ = 0;
-    private TextView currentX, currentY, currentZ, maxX, maxY, maxZ;
+    private static float deltaXMax = 0;
+    private static float deltaYMax = 0;
+    private static float deltaZMax = 0;
+    private static float deltaX = 0;
+    private static float deltaY = 0;
+    private static float deltaZ = 0;
+    private static TextView currentX, currentY, currentZ, maxX, maxY, maxZ;
     private float vibrateThreshold = 0;
     public Vibrator v;
 
@@ -178,6 +178,7 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
+
         stopRecording.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -365,6 +366,7 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
                 }
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
                 text.setText(String.valueOf(beatsAvg));
+
                 series.add(nofdpoints, beatsAvg);
                 nofdpoints++;
                 count++;
@@ -474,24 +476,24 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
 
         // display the current x,y,z accelerometer values
     public void displayCurrentValues() {
-        currentX.setText(Float.toString(deltaX));
-        currentY.setText(Float.toString(deltaY));
-        currentZ.setText(Float.toString(deltaZ));
+        currentX.setText(String.valueOf((int)deltaX));
+        currentY.setText(String.valueOf((int)deltaY));
+        currentZ.setText(String.valueOf((int)deltaZ));
     }
 
         // display the max x,y,z accelerometer values
     public void displayMaxValues() {
         if (deltaX > deltaXMax) {
             deltaXMax = deltaX;
-            maxX.setText(Float.toString(deltaXMax));
+            maxX.setText(String.valueOf((int)deltaXMax));
         }
         if (deltaY > deltaYMax) {
             deltaYMax = deltaY;
-            maxY.setText(Float.toString(deltaYMax));
+            maxY.setText(String.valueOf((int)deltaYMax));
         }
         if (deltaZ > deltaZMax) {
             deltaZMax = deltaZ;
-            maxZ.setText(Float.toString(deltaZMax));
+            maxZ.setText(String.valueOf((int)deltaZMax));
         }
     }
 }

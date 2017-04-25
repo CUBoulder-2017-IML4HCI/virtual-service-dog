@@ -15,59 +15,66 @@
 
         <TextView
             android:id="@+id/text"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_text"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/currentX"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/currentY"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/currentZ"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/maxX"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/maxY"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
 
         <TextView
             android:id="@+id/maxZ"
-            android:text="@string/default_text"
-            android:textSize="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/default_value"
+            android:textSize="20dp"></TextView>
     </LinearLayout>
 
     <LinearLayout

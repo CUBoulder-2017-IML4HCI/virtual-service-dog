@@ -26,6 +26,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.DisplayMetrics;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -111,6 +112,12 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     private float vibrateThreshold = 0;
     public Vibrator v;
 
+    //Detecting Shake
+    private float[] mGravity;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast;
+
     /**
      * {@inheritDoc}
      */
@@ -141,15 +148,18 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             // success! we have an accelerometer
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-            vibrateThreshold = accelerometer.getMaximumRange() / 2;
+            //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            mAccel = 0.00f;
+            mAccelCurrent = SensorManager.GRAVITY_EARTH;
+            mAccelLast = SensorManager.GRAVITY_EARTH;
+            //vibrateThreshold = accelerometer.getMaximumRange() / 2;
         } else {
             // fai! we dont have an accelerometer!
         }
 
-        vibrateThreshold = accelerometer.getMaximumRange() / 2;
+        //vibrateThreshold = accelerometer.getMaximumRange() / 2;
 
-        v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        //v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
         setContentView(R.layout.recording);
         c = this;
@@ -170,12 +180,6 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
         //image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text);
         currentX = (TextView) findViewById(R.id.currentX);
-        currentY = (TextView) findViewById(R.id.currentY);
-        currentZ = (TextView) findViewById(R.id.currentZ);
-
-        maxX = (TextView) findViewById(R.id.maxX);
-        maxY = (TextView) findViewById(R.id.maxY);
-        maxZ = (TextView) findViewById(R.id.maxZ);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
@@ -203,7 +207,8 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     @Override
     public void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
         wakeLock.acquire();
 
         camera = Camera.open();
@@ -453,54 +458,22 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     }
 
     public void onSensorChanged(SensorEvent event){
-        // clean current values
-        displayCleanValues();
-        // display the current x,y,z accelerometer values
-        displayCurrentValues();
-        // display the max x,y,z accelerometer values
-        displayMaxValues();
-
-        // get the change of the x,y,z values of the accelerometer
-        deltaX = Math.abs(lastX - event.values[0]);
-        deltaY = Math.abs(lastY - event.values[1]);
-        deltaZ = Math.abs(lastZ - event.values[2]);
-
-        // if the change is below 2, it is just plain noise
-        if (deltaX < 2)
-        deltaX = 0;
-        if (deltaY < 2)
-        deltaY = 0;
-        if ((deltaX > vibrateThreshold) || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold)) {
-            v.vibrate(50);
-        }
-    }
-
-    public void displayCleanValues() {
-        currentX.setText("0.0");
-        currentY.setText("0.0");
-        currentZ.setText("0.0");
-    }
-
-        // display the current x,y,z accelerometer values
-    public void displayCurrentValues() {
-        currentX.setText(String.valueOf(deltaX));
-        currentY.setText(String.valueOf(deltaY));
-        currentZ.setText(String.valueOf(deltaZ));
-    }
-
-        // display the max x,y,z accelerometer values
-    public void displayMaxValues() {
-        if (deltaX > deltaXMax) {
-            deltaXMax = deltaX;
-            maxX.setText(String.valueOf(deltaXMax));
-        }
-        if (deltaY > deltaYMax) {
-            deltaYMax = deltaY;
-            maxY.setText(String.valueOf(deltaYMax));
-        }
-        if (deltaZ > deltaZMax) {
-            deltaZMax = deltaZ;
-            maxZ.setText(String.valueOf(deltaZMax));
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            mGravity = event.values.clone();
+            // Shake detection
+            float x = mGravity[0];
+            float y = mGravity[1];
+            float z = mGravity[2];
+            mAccelLast = mAccelCurrent;
+            mAccelCurrent = (float)Math.sqrt(x*x + y*y + z*z);
+            float delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9f + delta;
+            // Make this higher or lower according to how much
+            // motion you want to detect
+            if(mAccel > 2){
+                // do something
+                deltaXMax = mAccel;
+            }
         }
     }
 }

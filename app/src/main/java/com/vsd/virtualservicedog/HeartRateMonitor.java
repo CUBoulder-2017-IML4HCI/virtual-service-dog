@@ -86,6 +86,10 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     private static long startTime = 0;
     public static GraphicalView graphicalView;
     static XYSeries series = new XYSeries("heart rate");
+
+    static XYSeries xseries = new XYSeries("x");
+
+
     static int nofdpoints = 0;
     public static Context c;
     XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -368,6 +372,7 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
                 text.setText(String.valueOf(beatsAvg));
 
                 series.add(nofdpoints, beatsAvg);
+
                 nofdpoints++;
                 count++;
                 graphicalView.repaint();
@@ -476,24 +481,24 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
 
         // display the current x,y,z accelerometer values
     public void displayCurrentValues() {
-        currentX.setText(String.valueOf((int)deltaX));
-        currentY.setText(String.valueOf((int)deltaY));
-        currentZ.setText(String.valueOf((int)deltaZ));
+        currentX.setText(String.valueOf(deltaX));
+        currentY.setText(String.valueOf(deltaY));
+        currentZ.setText(String.valueOf(deltaZ));
     }
 
         // display the max x,y,z accelerometer values
     public void displayMaxValues() {
         if (deltaX > deltaXMax) {
             deltaXMax = deltaX;
-            maxX.setText(String.valueOf((int)deltaXMax));
+            maxX.setText(String.valueOf(deltaXMax));
         }
         if (deltaY > deltaYMax) {
             deltaYMax = deltaY;
-            maxY.setText(String.valueOf((int)deltaYMax));
+            maxY.setText(String.valueOf(deltaYMax));
         }
         if (deltaZ > deltaZMax) {
             deltaZMax = deltaZ;
-            maxZ.setText(String.valueOf((int)deltaZMax));
+            maxZ.setText(String.valueOf(deltaZMax));
         }
     }
 }

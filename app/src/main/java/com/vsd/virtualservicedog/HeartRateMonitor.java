@@ -87,9 +87,6 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
     public static GraphicalView graphicalView;
     static XYSeries series = new XYSeries("heart rate");
 
-    static XYSeries xseries = new XYSeries("x");
-
-
     static int nofdpoints = 0;
     public static Context c;
     XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -280,6 +277,11 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
         bundle.putDoubleArray("ratesbundle", getRates());
         i.putExtra("rates", bundle);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Bundle s_bundle = new Bundle();
+        s_bundle.putFloat("DeltaBundle", deltaXMax);
+        i.putExtra("X", s_bundle);
+
         writeFile();
         c.startActivity(i);
     }

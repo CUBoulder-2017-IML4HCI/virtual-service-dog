@@ -72,6 +72,13 @@ public class DoneActivity extends ActionBarActivity {
             total+=r;
         }
         tv.setText("Average: " + (int)(total / i));
+
+        Bundle xb = getIntent().getExtras().getBundle("X");
+        float x = xb.getFloat("DeltaBundle");
+
+        TextView xDelta = (TextView) findViewById(R.id.sensor);
+        xDelta.setText("X: "+ String.valueOf(x));
+
         dataset.addSeries(series);
         graphicalView = ChartFactory.getScatterChartView(this, dataset, getDemoRenderer());
         LinearLayout layout = (LinearLayout) findViewById(R.id.done_graphview);

@@ -378,6 +378,8 @@ public class HeartRateMonitor extends AppCompatActivity implements SensorEventLi
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
                 text.setText(String.valueOf(beatsAvg));
 
+                //add shaking
+                currentX.setText("Detecting shaking: "+String.valueOf(deltaXMax));
                 series.add(nofdpoints, beatsAvg);
 
                 nofdpoints++;

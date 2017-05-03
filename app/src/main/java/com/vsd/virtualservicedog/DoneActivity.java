@@ -28,6 +28,7 @@ public class DoneActivity extends ActionBarActivity {
     Button restart;
     double total=0;
     double heartrate;
+    double shaking;
 
     //sets all of the options for the renderer
     private XYMultipleSeriesRenderer getDemoRenderer() {
@@ -86,9 +87,9 @@ public class DoneActivity extends ActionBarActivity {
         PanicDetection panicDetection;
         Context context = getApplicationContext();
         panicDetection  = PanicDetection.getInstance(context);
-
+        shaking = x;
         heartrate = (double)(int)(total/i);
-        double[] values = new double[]{(double)(int)(total/i)};
+        double[] values = new double[]{heartrate, x};
         Instance instance = new DenseInstance(values);
         Object result = panicDetection.classifydata(instance);
         if(result.toString().equals("yes")) {
@@ -106,7 +107,9 @@ public class DoneActivity extends ActionBarActivity {
     public void getHelp() {
         Intent intent = new Intent(this, ConfirmationActivity.class);
         String msg = String.valueOf(heartrate);
+        String shake = String.valueOf(shaking);
         intent.putExtra("HR", msg);
+        intent.putExtra("Shaking", shake);
         startActivity(intent);
     }
 

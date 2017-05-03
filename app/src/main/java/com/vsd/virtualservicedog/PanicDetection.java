@@ -41,8 +41,8 @@ class PanicDetection {
             String line = reader.readLine();
             while (line != null && !line.equals("")) {
                 String[] tokens = line.split(",");
-                double[] datapoint = new double[]{Double.parseDouble(tokens[0])};
-                String label = tokens[1];
+                double[] datapoint = new double[]{Double.parseDouble(tokens[0]), Double.parseDouble(tokens[1])};
+                String label = tokens[2];
                 Instance instance = new DenseInstance(datapoint,label);
                 data.add(instance);
                 line = reader.readLine();
@@ -58,10 +58,10 @@ class PanicDetection {
         return knnclassifier.classify(instance);
     }
 
-    void addToTraining(double data, String label) {
+    void addToTraining(double data, double shakiness, String label) {
         try {
             File file = new File(this.context.getFilesDir(), FILE_NAME);
-            String text = String.valueOf(data) + "," + label + "\n";
+            String text = String.valueOf(data) + "," + String.valueOf(shakiness) + "," + label + "\n";
             BufferedWriter buf = new BufferedWriter(new FileWriter(file, true));
             buf.append(text);
             buf.close();
@@ -79,13 +79,13 @@ class PanicDetection {
             try {
                 file.createNewFile();
                 BufferedWriter buf = new BufferedWriter(new FileWriter(file, true));
-                String text = "60,no\n" +
-                            "75,yes\n" +
-                            "80,yes\n" +
-                            "95,yes\n" +
-                            "65,no\n" +
-                            "55,no\n" +
-                            "70,no\n";
+                String text = "60, 2.5,no\n" +
+                            "75,3,yes\n" +
+                            "80,3,yes\n" +
+                            "95,3.7,yes\n" +
+                            "65,2,no\n" +
+                            "55,2,no\n" +
+                            "70,2,no\n";
                 buf.append(text);
                 buf.close();
             } catch (IOException e) {

@@ -4,9 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.Instance;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;

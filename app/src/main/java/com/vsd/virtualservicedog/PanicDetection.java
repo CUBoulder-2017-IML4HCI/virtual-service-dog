@@ -99,6 +99,6 @@ class PanicDetection {
         if (instance == null) {
             instance = new PanicDetection(context);
         }
-        return instance;
+        return new PanicDetection(context);
     }
 }

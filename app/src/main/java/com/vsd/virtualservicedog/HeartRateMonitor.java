@@ -3,9 +3,16 @@ package com.vsd.virtualservicedog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.hardware.TriggerEventListener;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -14,14 +21,18 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.DisplayMetrics;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,7 +52,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class HeartRateMonitor extends AppCompatActivity {
+public class HeartRateMonitor extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
@@ -76,6 +87,7 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static long startTime = 0;
     public static GraphicalView graphicalView;
     static XYSeries series = new XYSeries("heart rate");
+
     static int nofdpoints = 0;
     public static Context c;
     XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -87,6 +99,24 @@ public class HeartRateMonitor extends AppCompatActivity {
     public static final int CHART_LEGEND_TEXT_SIZE = 50;
     public static final float CHART_POINT_SIZE = 10f;
 
+    private float lastX, lastY, lastZ;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private static float deltaXMax = 0;
+    private static float deltaYMax = 0;
+    private static float deltaZMax = 0;
+    private static float deltaX = 0;
+    private static float deltaY = 0;
+    private static float deltaZ = 0;
+    private static TextView currentX, currentY, currentZ, maxX, maxY, maxZ;
+    private float vibrateThreshold = 0;
+    public Vibrator v;
+
+    //Detecting Shake
+    private float[] mGravity;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast;
 
     /**
      * {@inheritDoc}
@@ -114,6 +144,23 @@ public class HeartRateMonitor extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            // success! we have an accelerometer
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            mAccel = 0.00f;
+            mAccelCurrent = SensorManager.GRAVITY_EARTH;
+            mAccelLast = SensorManager.GRAVITY_EARTH;
+            //vibrateThreshold = accelerometer.getMaximumRange() / 2;
+        } else {
+            // fai! we dont have an accelerometer!
+        }
+
+        //vibrateThreshold = accelerometer.getMaximumRange() / 2;
+
+        //v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+
         setContentView(R.layout.recording);
         c = this;
 
@@ -131,9 +178,11 @@ public class HeartRateMonitor extends AppCompatActivity {
 
         //image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text);
+        currentX = (TextView) findViewById(R.id.currentX);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
+
         stopRecording.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +206,8 @@ public class HeartRateMonitor extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        //sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
         wakeLock.acquire();
 
         camera = Camera.open();
@@ -171,6 +221,7 @@ public class HeartRateMonitor extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+        sensorManager.unregisterListener(this);
 
         wakeLock.release();
 
@@ -179,6 +230,7 @@ public class HeartRateMonitor extends AppCompatActivity {
         camera.release();
         camera = null;
     }
+
 
     @Override
     protected void onDestroy() {
@@ -229,6 +281,11 @@ public class HeartRateMonitor extends AppCompatActivity {
         bundle.putDoubleArray("ratesbundle", getRates());
         i.putExtra("rates", bundle);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Bundle s_bundle = new Bundle();
+        s_bundle.putFloat("DeltaBundle", deltaXMax);
+        i.putExtra("X", s_bundle);
+
         writeFile();
         c.startActivity(i);
     }
@@ -319,7 +376,11 @@ public class HeartRateMonitor extends AppCompatActivity {
                 }
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
                 text.setText(String.valueOf(beatsAvg));
+
+                //add shaking
+                currentX.setText("Detecting shaking: "+String.valueOf(deltaXMax));
                 series.add(nofdpoints, beatsAvg);
+
                 nofdpoints++;
                 count++;
                 graphicalView.repaint();
@@ -390,6 +451,31 @@ public class HeartRateMonitor extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    public void onSensorChanged(SensorEvent event){
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            mGravity = event.values.clone();
+            // Shake detection
+            float x = mGravity[0];
+            float y = mGravity[1];
+            float z = mGravity[2];
+            mAccelLast = mAccelCurrent;
+            mAccelCurrent = (float)Math.sqrt(x*x + y*y + z*z);
+            float delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9f + delta;
+            // Make this higher or lower according to how much
+            // motion you want to detect
+            if(mAccel > 2){
+                // do something
+                deltaXMax = mAccel;
+            }
+        }
     }
 }
 

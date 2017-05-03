@@ -24,7 +24,9 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String answer = extras.getString("HR");
+        String shaking = extras.getString("Shaking");
         final double heartrate = Double.parseDouble(answer);
+        final double shakiness = Double.parseDouble(shaking);
 
         Button noButton = (Button) findViewById(R.id.nobtn);
         Button yesButton = (Button) findViewById(R.id.yesbtn);
@@ -33,7 +35,7 @@ public class ConfirmationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = getApplicationContext();
                 PanicDetection panicDetection  = PanicDetection.getInstance(context);
-                panicDetection.addToTraining(heartrate, "yes");
+                panicDetection.addToTraining(heartrate, shakiness, "yes");
                 getBreath();
             }
         });
@@ -42,7 +44,7 @@ public class ConfirmationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = getApplicationContext();
                 PanicDetection panicDetection  = PanicDetection.getInstance(context);
-                panicDetection.addToTraining(heartrate, "no");
+                panicDetection.addToTraining(heartrate, shakiness, "no");
                 getMainActivity();
             }
         });

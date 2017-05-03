@@ -22,13 +22,23 @@
         android:layout_alignLeft="@+id/readybutton"
         android:layout_alignStart="@+id/readybutton" />
 
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"/>
+
     <Button
         android:id="@+id/readybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tap when you are ready"
+        android:text="ready?"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/button"
+        android:textSize="60px"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

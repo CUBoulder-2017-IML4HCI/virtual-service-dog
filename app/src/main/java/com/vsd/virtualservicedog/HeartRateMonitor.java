@@ -117,7 +117,6 @@ public class HeartRateMonitor extends AppCompatActivity {
         setContentView(R.layout.recording);
         c = this;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dataset.addSeries(series);
         graphicalView = ChartFactory.getScatterChartView(this, dataset, getDemoRenderer());
         LinearLayout layout = (LinearLayout) findViewById(R.id.graphlayout);

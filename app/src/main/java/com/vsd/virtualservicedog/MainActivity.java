@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(getWindow().FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         Button mybtn = (Button) findViewById(R.id.helpbtn);
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 getInsights();
             }
         });
-
-        predictionText = (TextView) findViewById(R.id.prediction);
-        heartrateTextView = (TextView) findViewById(R.id.hearrate);
 
         Button switchBtn = (Button) findViewById(switchbtn);
         switchBtn.setText("Monitor");
@@ -139,6 +137,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
 

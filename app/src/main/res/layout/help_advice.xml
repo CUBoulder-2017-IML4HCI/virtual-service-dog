@@ -17,18 +17,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ok!"
-        android:layout_marginTop="78dp"
-        android:layout_below="@+id/adviceText"
-        android:layout_alignLeft="@+id/adviceText"
-        android:layout_alignStart="@+id/adviceText" />
+        android:background="@drawable/buttonsmall"
+        android:textSize="60px"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp" />
 
     <TextView
         android:id="@+id/adviceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Advice"
-        android:layout_centerInParent="true"
-        android:padding="25sp"
-        android:textColor="#000" />
+        android:padding="15sp"
+        android:textColor="#000"
+        android:layout_marginTop="61dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

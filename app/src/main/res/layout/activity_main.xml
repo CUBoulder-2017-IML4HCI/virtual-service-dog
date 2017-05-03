@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
         android:background="@drawable/button"
-        android:textSize="60px"
+        android:textSize="20dp"
         android:textColor="#ffffff" />
 
     <Button
@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/button"
-        android:textSize="60px"
+        android:textSize="20dp"
         android:textColor="#ffffff" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_alignLeft="@+id/switchbtn"
         android:layout_alignStart="@+id/switchbtn"
         android:background="@drawable/button"
-        android:textSize="60px"
+        android:textSize="20dp"
         android:textColor="#ffffff" />
 
     <ImageView

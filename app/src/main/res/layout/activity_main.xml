@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +17,10 @@
         android:id="@+id/helpbtn"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_marginTop="180dp"
+        android:background="@drawable/button"
+        android:textSize="60px"
+        android:textColor="#ffffff" />
 
     <Button
         android:id="@+id/switchbtn"
@@ -24,16 +28,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/helpbtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp"/>
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button"
+        android:textSize="60px"
+        android:textColor="#ffffff" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Insight"
         android:id="@+id/insight"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/switchbtn"
         android:layout_alignLeft="@+id/switchbtn"
-        android:layout_alignStart="@+id/switchbtn" />
+        android:layout_alignStart="@+id/switchbtn"
+        android:background="@drawable/button"
+        android:textSize="60px"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/vsd"
+        android:layout_above="@+id/switchbtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="93dp" />
 
 </RelativeLayout>

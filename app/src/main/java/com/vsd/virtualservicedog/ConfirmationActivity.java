@@ -16,7 +16,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_message);
 
         // Get the Intent that started this activity and extract the string
-        String message = "You seems stressed. Are you doing okay?";
+        String message = "You seem stressed. Are you feeling okay?";
 
         // Capture the layout's TextView and set the string as its text
         TextView textView = (TextView) findViewById(R.id.textView);

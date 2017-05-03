@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
         android:background="@drawable/button"
-        android:textSize="60px"
+        android:textSize="20dp"
         android:textColor="#ffffff" />
 
 </RelativeLayout>

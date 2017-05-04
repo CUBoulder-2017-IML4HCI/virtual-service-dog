@@ -25,28 +25,24 @@
         android:layout_height="wrap_content"
         android:text="Yes"
         android:id="@+id/yesbtn"
+        android:background="@drawable/buttonsmall"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
         android:layout_alignBaseline="@+id/nobtn"
         android:layout_alignBottom="@+id/nobtn"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="59dp"
-        android:layout_marginStart="59dp"
-        android:background="@drawable/buttonsmall"
-        android:textSize="20dp"
-        android:textColor="#ffffff" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No"
         android:id="@+id/nobtn"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/buttonsmall"
         android:textSize="20dp"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

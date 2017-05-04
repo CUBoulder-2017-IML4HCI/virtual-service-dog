@@ -34,14 +34,14 @@ public class HelpAdvice extends AppCompatActivity {
         Button okBtn = (Button) findViewById(R.id.okButton);
         okBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getMainActivity();
+                getResource();
             }
         });
 
     }
 
-    private void getMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void getResource() {
+        Intent intent = new Intent(this, Resources.class);
         startActivity(intent);
     }
 }

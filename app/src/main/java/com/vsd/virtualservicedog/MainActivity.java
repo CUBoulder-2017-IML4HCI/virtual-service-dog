@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button resourcebtn = (Button) findViewById(R.id.resources);
+        resourcebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getResource();
+            }
+        });
+
         Button switchBtn = (Button) findViewById(switchbtn);
         switchBtn.setText("Monitor");
         switchBtn.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Help button */
     private void getBreath() {
         Intent intent = new Intent(this, BreathActivity.class);
+        startActivity(intent);
+    }
+
+    private void getResource() {
+        Intent intent = new Intent(this, Resources.class);
         startActivity(intent);
     }
 
